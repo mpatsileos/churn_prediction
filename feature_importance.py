@@ -3,11 +3,12 @@ from data_preprocessing import data_preprocessing_trees
 import numpy as np
 from sklearn.metrics import roc_auc_score
 import matplotlib.pyplot as plt
+import os
 
 def main():
     fig_save_path = 'feature_importance.png'
     # load model
-    load_path = 'extraTreesClassifier.pickle'
+    load_path = os.path.join('model', 'extraTreesClassifier.pickle')
     loaded_model = pickle.load(open(load_path, "rb"))
 
     # Normalizing the individual importances

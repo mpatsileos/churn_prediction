@@ -1,10 +1,11 @@
 import pandas as pd
 import numpy as np
 from sklearn.metrics import roc_auc_score, classification_report
+import os
 
 def main():
-    tree_preds = 'extratree_probs.csv'
-    labels_csv = 'labels.csv'
+    tree_preds = os.path.join('probs_labels','extratree_probs.csv')
+    labels_csv = os.path.join('probs_labels', 'labels.csv')
 
     df_tree = pd.read_csv(tree_preds)
     df_labels = pd.read_csv(labels_csv)

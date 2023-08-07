@@ -3,13 +3,14 @@ from data_preprocessing import data_preprocessing_trees
 import numpy as np
 from sklearn.metrics import roc_auc_score
 import pandas as pd
+import os
 
 def main():
-    save_preds = 'extratree_probs.csv'
-    labels = 'labels.csv'
-    data_path = 'churn_data.csv'
+    save_preds = os.path.join('probs_labels', 'extratree_probs.csv')
+    labels = os.path.join('probs_labels', 'labels.csv')
+    data_path = os.path.join('data','churn_data.csv')
     # load model
-    load_path = 'extraTreesClassifier.pickle'
+    load_path = os.path.join('model','extraTreesClassifier.pickle')
     loaded_model = pickle.load(open(load_path, "rb"))
 
     _, test_data = data_preprocessing_trees(data_path, 0.2)

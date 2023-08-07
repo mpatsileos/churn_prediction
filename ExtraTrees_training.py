@@ -4,11 +4,12 @@ from data_preprocessing import data_preprocessing_trees
 from sklearn.metrics import roc_auc_score
 from sklearn.model_selection import GridSearchCV, KFold
 import pickle
+import os
 
 def main():
     # Extra Trees
-    data_path = 'churn_data.csv'
-    model_save_path = 'extraTreesClassifier.pickle'
+    data_path = os.path.join('data', 'churn_data.csv')
+    model_save_path = os.path.join('model', 'extraTreesClassifier.pickle')
     train_data, test_data = data_preprocessing_trees(data_path, 0.2)
     x_train = np.concatenate((train_data.categorical_features,train_data.numerical_features), axis=-1)
     y_train = train_data.labels
