@@ -2,10 +2,17 @@ import pandas as pd
 import numpy as np
 from sklearn.metrics import roc_auc_score, classification_report
 import os
+import argparse
+
+parser = argparse.ArgumentParser(description='ExtraTrees Inference')
+parser.add_argument('--load_preds', default = 'probs_labels\extratree_probs.csv', type=str, help='save path of extratree predictions csv file')
+parser.add_argument('--load_labels', default = 'probs_labels\labels.csv', type=str, help='save path of labels csv file')
+
 
 def main():
-    tree_preds = os.path.join('probs_labels','extratree_probs.csv')
-    labels_csv = os.path.join('probs_labels', 'labels.csv')
+    args = parser.parse_args()
+    tree_preds = args.load_preds
+    labels_csv = args.load_labels
 
     df_tree = pd.read_csv(tree_preds)
     df_labels = pd.read_csv(labels_csv)

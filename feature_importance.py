@@ -5,10 +5,15 @@ from sklearn.metrics import roc_auc_score
 import matplotlib.pyplot as plt
 import os
 
+import argparse
+
+parser = argparse.ArgumentParser(description='Feature Importance')
+parser.add_argument('--model_load_path', default = 'model\extraTreesClassifier.pickle', type=str, help='path to save model')
+
 def main():
-    fig_save_path = 'feature_importance.png'
+    args = parser.parse_args()
     # load model
-    load_path = os.path.join('model', 'extraTreesClassifier.pickle')
+    load_path = args.model_load_path
     loaded_model = pickle.load(open(load_path, "rb"))
 
     # Normalizing the individual importances

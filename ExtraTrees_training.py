@@ -5,11 +5,17 @@ from sklearn.metrics import roc_auc_score
 from sklearn.model_selection import GridSearchCV, KFold
 import pickle
 import os
+import argparse
+
+parser = argparse.ArgumentParser(description='ExtraTrees Training')
+parser.add_argument('--data_path', default = 'data\churn_data.csv', type=str, help='path of csv file')
+parser.add_argument('--model_save_path', default = 'model\extraTreesClassifier.pickle', type=str, help='path to save model')
+
 
 def main():
-    # Extra Trees
-    data_path = os.path.join('data', 'churn_data.csv')
-    model_save_path = os.path.join('model', 'extraTreesClassifier.pickle')
+    args = parser.parse_args()
+    data_path = args.data_path
+    model_save_path = args.model_save_path
     train_data, test_data = data_preprocessing_trees(data_path, 0.2)
     x_train = np.concatenate((train_data.categorical_features,train_data.numerical_features), axis=-1)
     y_train = train_data.labels

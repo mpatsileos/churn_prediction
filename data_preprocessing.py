@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
-import torch
 from sklearn import preprocessing
 
 
@@ -16,10 +15,27 @@ def data_preprocessing_trees(data_path, test_ratio = 0.2):
     df = pd.read_csv(data_path)
     cond = df['NoProducts']>3
     df.loc[cond,'NoProducts'] = 3
+    
+    cond = df['Age_Band']=='18-25'
+    df.loc[cond,'Age_Band'] = 22
+    cond = df['Age_Band']=='25-35'
+    df.loc[cond,'Age_Band'] = 30
+    cond = df['Age_Band']=='35-45'
+    df.loc[cond,'Age_Band'] = 40
+    cond = df['Age_Band']=='45-55'
+    df.loc[cond,'Age_Band'] = 50
+    cond = df['Age_Band']=='55-65'
+    df.loc[cond,'Age_Band'] = 60
+    cond = df['Age_Band']=='65+'
+    df.loc[cond,'Age_Band'] = 70
+    # print(df['Age_Band'].unique())
+
+
+
     user_ids = df['CustomerID'].to_numpy()
     labels_np = df['Inactive'].to_numpy()
-    cat_data = df[['Geography', 'Age_Band']].to_numpy()
-    num_data = df[['Gender', 'TenureYears', 'EstimatedIncome', 'BalanceEuros', 'NoProducts', 'CreditCardholder', 'CustomerWithLoan', 'Digital_TRX_ratio']].to_numpy()
+    cat_data = df[['Geography']].to_numpy()
+    num_data = df[['Age_Band', 'Gender', 'TenureYears', 'EstimatedIncome', 'BalanceEuros', 'NoProducts', 'CreditCardholder', 'CustomerWithLoan', 'Digital_TRX_ratio']].to_numpy()
     num_data[num_data=='Female'] = 1
     num_data[num_data=='Male'] = 0
     num_data = num_data.astype(float)
@@ -31,18 +47,21 @@ def data_preprocessing_trees(data_path, test_ratio = 0.2):
                                                                                                                                               test_size = test_ratio,
                                                                                                                                             stratify=labels_np, 
                                                                                                                                             random_state=42)
+    
+    # print(cat_data.shape)
+    # print(num_data.shape)
     unq_cat1 = np.unique(cat_data_train[:,0])
-    unq_cat2 = np.unique(cat_data_train[:,1])
+    # unq_cat2 = np.unique(cat_data_train[:,1])
     
     le1 = preprocessing.LabelEncoder()
     le1.fit(unq_cat1)
-    le2 = preprocessing.LabelEncoder()
-    le2.fit(unq_cat2)
+    # le2 = preprocessing.LabelEncoder()
+    # le2.fit(unq_cat2)
 
     cat_data_train[:,0] = le1.transform(cat_data_train[:,0])
-    cat_data_train[:,1] = le2.transform(cat_data_train[:,1])
+    #cat_data_train[:,1] = le2.transform(cat_data_train[:,1])
     cat_data_test[:,0] = le1.transform(cat_data_test[:,0])
-    cat_data_test[:,1] = le2.transform(cat_data_test[:,1])
+    #cat_data_test[:,1] = le2.transform(cat_data_test[:,1])
     
     cat_data_train = cat_data_train.astype(np.int32)
     cat_data_test = cat_data_test.astype(np.int32)
