@@ -4,7 +4,10 @@ This is a repository for predicting churn: predict the probability of a user bei
 
 ## How to run
 
-* Build docker image from the provided dockerfile
+* Build docker image by the provided dockerfile: Docker/Dockerfile, for example:
+** cd Docker
+** "docker build -t image_name:version .
+* Use this image to run into docker container environment
 
 ## Training
 

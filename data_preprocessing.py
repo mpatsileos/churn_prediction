@@ -28,8 +28,6 @@ def data_preprocessing_trees(data_path, test_ratio = 0.2):
     df.loc[cond,'Age_Band'] = 60
     cond = df['Age_Band']=='65+'
     df.loc[cond,'Age_Band'] = 70
-    # print(df['Age_Band'].unique())
-
 
 
     user_ids = df['CustomerID'].to_numpy()
@@ -48,20 +46,13 @@ def data_preprocessing_trees(data_path, test_ratio = 0.2):
                                                                                                                                             stratify=labels_np, 
                                                                                                                                             random_state=42)
     
-    # print(cat_data.shape)
-    # print(num_data.shape)
     unq_cat1 = np.unique(cat_data_train[:,0])
-    # unq_cat2 = np.unique(cat_data_train[:,1])
     
     le1 = preprocessing.LabelEncoder()
     le1.fit(unq_cat1)
-    # le2 = preprocessing.LabelEncoder()
-    # le2.fit(unq_cat2)
 
     cat_data_train[:,0] = le1.transform(cat_data_train[:,0])
-    #cat_data_train[:,1] = le2.transform(cat_data_train[:,1])
     cat_data_test[:,0] = le1.transform(cat_data_test[:,0])
-    #cat_data_test[:,1] = le2.transform(cat_data_test[:,1])
     
     cat_data_train = cat_data_train.astype(np.int32)
     cat_data_test = cat_data_test.astype(np.int32)
