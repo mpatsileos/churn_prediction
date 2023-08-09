@@ -5,9 +5,9 @@ This is a repository for predicting churn: predict the probability of a user bei
 ## How to run
 
 * Build docker image by the provided dockerfile: Docker/Dockerfile, for example:<br>
- * cd Docker <br>
- * "docker build -t image_name:version . <br>
-* Use this image to run into docker container environment
+  * cd Docker <br>
+  * "docker build -t image_name:version . <br>
+* Use this image to run into docker container environment<br>
 
 ## Training
 
